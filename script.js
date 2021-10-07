@@ -2,29 +2,51 @@
 
 function getNumber(num) {
 
-  let userNumber = +prompt("Угадай число от 1 до 100");
+  let userNumber = +prompt("Угадайте число от 1 до 100. У вас 10 попыток");
+  let counter = 10;
 
-  if (userNumber === null) {
+  if (!userNumber) {
     alert("Игра окончена");
     return;
   }
 
   function guessNumber() {
 
-    if (userNumber === num) {
-      alert("Поздравляю, Вы угадали!");
-      return;
-    } else if (userNumber > num) {
-      userNumber = +prompt("Загаданное число меньше. Введите новый вариант");
-    } else if (userNumber < num) {
-      userNumber = +prompt("Загаданное число больше. Введите новый вариант");
-    } else if (isNaN(userNumber) || !isFinite(userNumber)) {
-      userNumber = +prompt("Вы указали не число. Введите новый вариант");
+    while (counter > 1) {
+
+      counter--;
+
+      if (userNumber === num) {
+        alert("Поздравляю, Вы угадали!");
+        playAgain();
+        return;
+      } else if (userNumber > num) {
+        userNumber = +prompt("Загаданное число меньше. Осталось попыток " + counter);
+      } else if (userNumber < num) {
+        userNumber = +prompt("Загаданное число больше. Осталось попыток " + counter);
+      } else if (isNaN(userNumber) || !isFinite(userNumber)) {
+        userNumber = +prompt("Вы указали не число. Осталось попыток " + counter);
+      }
+      return guessNumber(userNumber);
     }
-    return guessNumber(userNumber);
+
+    alert("Попытки закончились");
+    playAgain();
   }
 
   guessNumber(userNumber);
+}
+
+function playAgain() {
+
+  let play = confirm("Хотели бы сыграть еще раз?");
+
+  if (play === true) {
+    getNumber(1);
+  } else if (!play) {
+    alert("Игра окончена");
+    return;
+  }
 }
 
 getNumber(5);
