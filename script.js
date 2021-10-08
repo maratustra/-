@@ -47,6 +47,8 @@ function playAgain() {
     alert("Игра окончена");
     return;
   }
-}
+};
 
-getNumber(5);
+let randomNumber = getNumber(5);
+randomNumber();
+
